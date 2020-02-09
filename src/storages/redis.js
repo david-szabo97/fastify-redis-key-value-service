@@ -1,10 +1,10 @@
 const redis = require('redis')
 const { promisify } = require('util')
 
-function createRedisStorage ({ logger }) {
+function createRedisStorage ({ logger, host, port }) {
   const client = redis.createClient({
-    host: 'redis',
-    port: 6379
+    host: host || 'redis',
+    port: port || 6379
   })
 
   client.asyncGet = promisify(client.get).bind(client)

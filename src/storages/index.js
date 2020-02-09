@@ -8,7 +8,11 @@ function createStorage (type, options) {
     case 'MEMORY':
       return createMemoryStorage(options)
     case 'REDIS':
-      return createRedisStorage(options)
+      return createRedisStorage({
+        ...options,
+        host: process.env.STORAGE_REDIS_HOST,
+        port: process.env.STORAGE_REDIS_PORT
+      })
     default:
       throw Error(`Unrecognized storage: ${typeUpper}`)
   }
